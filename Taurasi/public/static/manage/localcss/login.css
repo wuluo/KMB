@@ -1,0 +1,7 @@
+body{ background:#3283AC url(../dist/img/admin-login-bg.jpg) no-repeat center}
+.login-logo{font-size: 40px;}
+.login-box{width: 617px;}
+.login-box-msg{font-size:20px;}
+.login-box-body{background:url(../dist/img/admin-loginform-bg.png) no-repeat; padding-top: 30px;padding-left: 30px; padding-right: 30px; border-top: 0; color: #666; height:368px;}
+.form-control{margin-bottom: 30px;}
+.control-label{font-size: 19px; font-weight: bold; padding-top: 7px; font-color: #666;}
