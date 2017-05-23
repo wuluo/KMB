@@ -49,7 +49,7 @@ Kohana::init([
     'base_url'   => MODULEDIR,
     'index_file' => false,
     'cache_dir'  => CACHEDIR,
-    'errors'     => true,
+    'errors'     => false,
 ]);
 
 /**

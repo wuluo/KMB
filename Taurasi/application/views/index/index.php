@@ -1,6 +1,4 @@
 <?php include Kohana::find_file('views', 'public/header') ?>
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
@@ -339,7 +337,4 @@ themes/simplebootx/Public/assets
     </div>
     
   </section>
-  <!-- /.content -->
-</div>
-<!-- /.content-wrapper -->
 <?php include Kohana::find_file('views', 'public/footer') ?>

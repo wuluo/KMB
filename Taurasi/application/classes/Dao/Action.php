@@ -10,7 +10,7 @@ class Dao_Action extends Dao {
 	public function getAllAction() {
 		return DB::select('*')
 				->from($this->_tableName)
-				->as_object()
-				->execute($this->_db);
+				->execute($this->_db)
+				->as_array();
 	}
 }

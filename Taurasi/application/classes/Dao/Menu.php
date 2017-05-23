@@ -12,8 +12,8 @@ class Dao_Menu extends Dao {
 				->from($this->_tableName)
 				->where('status', '=', 1)
 				->where('type', '=', 0)
-				->order('weight','desc')
-				->as_object()
-				->execute($this->_db);
+				->order_by('weight','desc')
+				->execute($this->_db)
+				->as_array();
 	}
 }

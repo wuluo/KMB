@@ -52,7 +52,7 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
               <img src="/static/manage/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-              <span class="hidden-xs">{{global.admin.userTitle}}</span>
+              <span class="hidden-xs"><?=$userinfo['title'];?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -60,12 +60,12 @@
                 <img src="/static/manage/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                 <p>
-                  {{ global.admin.userName }} - {{global.admin.userTitle}}
-                  <small>最新登录时间：{{global.admin.loginTime|date("Y-m-d")}}</small>
+					<?=$userinfo['username'];?> - <?=$userinfo['title'];?>
+                  <small>最新登录时间：<?=$userinfo['logintime'];?></small>
                 </p>
               </li>
               <!-- Menu Body -->
-              <li class="user-body">
+              <!--<li class="user-body">
                 <div class="row">
                   <div class="col-xs-4 text-center">
                     <a href="#">Followers</a>
@@ -77,15 +77,14 @@
                     <a href="#">Friends</a>
                   </div>
                 </div>
-                <!-- /.row -->
-              </li>
+              </li>-->
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
                   <a href="https://github.com/wuluo" class="btn btn-default btn-flat">GitHub主页</a>
                 </div>
                 <div class="pull-right">
-                  <a href="/admin/login/logout" class="btn btn-default btn-flat">退出登录</a>
+                  <a href="/author/logout" class="btn btn-default btn-flat">退出登录</a>
                 </div>
               </li>
             </ul>
@@ -98,34 +97,33 @@
 <aside class="main-sidebar">
     <section class="sidebar">
       <ul class="sidebar-menu">
-        {% for menu in global.menus %}
-        <li class="treeview {% if menu.child %}{% for childs in menu.child %}{% if childs.uri == global.nowUri %}active{% endif %}{% endfor %}{% endif %}">
+        <?php foreach ($menus as $k=>$v){ ?>
+        <li class="treeview <?php if(!empty($v["child"])){ foreach ($v['child'] as $k2=>$v2){ if($v2['uri'] == URL::site()){ echo " active";}}} ?>">
           <a href="javascript:;">
-            <i class="fa {{ menu.icon }}"></i> <span>{{ menu.name }}</span>
-            {% if menu.child %}
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-            {% endif %}
+            <i class="fa <?=$v['icon']?>"></i> <span><?=$v['name']?></span>
+              <?php if(!empty($v['child'])){ ?>
+                  <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                  </span>
+              <?php } ?>
           </a>
-          {% if menu.child %}
+          <?php if(!empty($v['child'])){ ?>
           <ul class="treeview-menu">
-            {% for childs in menu.child %}
-            {% if childs.uri == global.nowUri %}
+            <?php foreach ($v['child'] as $k1=>$v1){ ?>
+              <?php if($v1['uri'] == URL::base()){?>
             <li class="active">
-              {% else %}
+              <?php }else{ ?>
             <li>
-            {% endif %}
-              <a href="{{ childs.uri }}"><i class="fa {{ childs.icon }}"></i>{{ childs.name }}</a>
+            <?php } ?>
+              <a href="<?=$v1['uri']?>"><i class="fa <?=$v1['icon']?>"></i><?=$v1['name']?></a>
             </li>
-            {% endfor %}
+            <?php } ?>
           </ul>
-          {% endif %}
+		  <?php } ?>
         </li>
-        {% endfor %}
+        <?php } ?>
       </ul>
     </section>
     <!-- /.sidebar -->
   </aside>
-{% endblock %}
 <div class="content-wrapper">

@@ -48,7 +48,30 @@ class Business_Author extends Business {
 		}
 	
 	}
-	
+
+	public function getMenusAndRules($role_id)
+	{
+		$showMenus = [];
+		$menus = Dao::factory("Menu")->getAllMenus();
+		if($role_id > 1){
+			$actions = Dao::factory("RoleAction")->getRoleAction($role_id);
+			$actionIds = array_column($actions, 'action_id');
+
+			foreach ($menus as $key=>$val){
+				if(in_array($val['action_id'], $actionIds)){
+					$showMenus[] = $val;
+				}
+			}
+			$showMenus = $this->treeMerge($showMenus);
+		}else{
+			$actions = Dao::factory("Action")->getAllAction();
+			$showMenus = $this->treeMerge($menus);
+		}
+		return [
+			'menus' => $showMenus,
+			'rules' =>$actions,
+		];
+	}
 	public function logout() {
 		try {
 			$name = $b = Session::instance()->get('username');
@@ -56,6 +79,7 @@ class Business_Author extends Business {
 			Session::instance()->delete('title');
 			Session::instance()->delete('logintime');
 			Session::instance()->delete('login');
+			Session::instance()->delete('roleid');
 			Session::instance()->delete('id');
 			Cookie::delete(session_name());
 			if(Session::instance()->destroy()){
@@ -65,6 +89,18 @@ class Business_Author extends Business {
 		} catch(Exception $e) {
 			return $e->getMessage();
 		}
+	}
+
+	public function treeMerge($array,$pid=0)
+	{
+		$last=array();
+		foreach($array as $k=>$v){
+			if($v['pid']==$pid){
+				$v['child']=$this->treeMerge($array,$v['id']);
+				$last[]=$v;
+			}
+		}
+		return $last;
 	}
 
 	
