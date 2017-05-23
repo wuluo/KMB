@@ -65,6 +65,10 @@ class Redisd {
 		return @unserialize($data);
 	}
 
+	public function setnx($key,$value) {
+		return self::$_instance->setnx($key,$value);
+	}
+
 	public function delete($key) {
 		return self::$driver == 'redis' ? self::$_instance->delete($key) : self::$_instance->del($key);
 	}

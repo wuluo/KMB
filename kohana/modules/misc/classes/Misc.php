@@ -1,6 +1,7 @@
 <?php
 
 class Misc {
+
 	static public function encryptLog($text, $key = 'G2f$fsd&sO(7fM@E') {
 		# 为 CBC 模式创建随机的初始向量
 		$ivSize = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_CBC);
@@ -190,7 +191,7 @@ class Misc {
 
 		for ($i = 0; $i <= $length; $i++) {
 
-			$char = substr($data, $i, 1);
+			$char = mb_substr($data, $i, 1, 'utf-8');
 
 			if ($char == '"' && $prevchar != '\\') {
 				$outofquotes = !$outofquotes;
@@ -276,7 +277,7 @@ class Misc {
 	 * @return type
 	 */
 	public static function sizeFormat($size) {
-		$size = (int)$size;
+		$size = (int) $size;
 		if ($size < 1024) {
 			return $size . " bytes";
 		} else if ($size < (1024 * 1024)) {
@@ -291,14 +292,17 @@ class Misc {
 		}
 	}
 
-	public static function crash(Throwable $ex) {
+	public static function crash($ex) {
+		if ((!($ex instanceof Throwable)) && (!($ex instanceof Exception))) {
+			throw  new Exception("Misc::crash(),argument 1 must be an Exception Object");
+		}
 		$loggerCrash = new Log_Database();
 		$crashMessage = array(
-			'level' => $ex->getCode(),
-			'file' => $ex->getFile(),
-			'line' => $ex->getLine(),
-			'body' => $ex->getMessage(),
-			'time' => time()
+		    'level' => $ex->getCode(),
+		    'file' => $ex->getFile(),
+		    'line' => $ex->getLine(),
+		    'body' => $ex->getMessage(),
+		    'time' => time()
 		);
 		$loggerCrash->write(array($crashMessage));
 	}
@@ -314,15 +318,15 @@ class Misc {
 	/*
 	 * 生成新的图片地址
 	 */
-	public static function getImage($imgUrl) { 
-		if( preg_match("/i\d\.meixincdn/i", $imgUrl, $out) ) {
-			return str_replace($out[0], 'i'.rand(1, 9).'.meixincdn', $imgUrl);
+
+	public static function getImage($imgUrl) {
+		if (preg_match("/i\d\.meixincdn/i", $imgUrl, $out)) {
+			return str_replace($out[0], 'i' . rand(1, 9) . '.meixincdn', $imgUrl);
 		} else {
 			return $imgUrl;
-			
 		}
 	}
-	
+
 	/**
 	 * 外网API请求token规则
 	 * @param appname string 系统名称
@@ -333,4 +337,95 @@ class Misc {
 		$appkey = Kohana::$config->load('default.appkey');
 		return md5($appname . $appkey . $userId);
 	}
+
+	/**
+	 * 删除redis信息 
+	 * @param  array  $instantiationParamet 实例化对象值
+	 * @param  string $routeKey  wmq消息消费指定key
+	 * @return 
+	 */
+	public static function deleteRedisCache($instantiationParamet, $routeKey = '') {
+		$config = Kohana::$config->load('wmq');
+		$URL = $config ['video_event_url'] . '/Mq/video.ssp';
+		$header = array(
+		    'Token:' . $config ['video_token'],
+		    'RouteKey:' . $routeKey,
+		    'Content-Type:application/x-www-form-urlencoded'
+		);
+
+		$requestQueue = new Curl_Request ();
+		$requestQueue->post($URL, $instantiationParamet, $header);
+		$code = $requestQueue->code();
+		if ($code == 204) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+	}
+
+	/**
+	 * app管理生成随机盐
+	 * @param  appname  string
+	 * @param  appkey   string
+	 * @param  time     int
+	 */
+	public static function getAppSalt($appname, $appkey, $time) {
+		return substr(md5($appname . $appkey . $time), 0, 16);
+	}
+
+	/**
+	 * app管理生成appkey
+	 * @param  appname  string
+	 * @param  time     int
+	 */
+	public static function getAppkey($appname, $time) {
+		return substr(md5($appname . $time), 0, 16);
+	}
+
+	public static function formatBytes($bytes, $precision = 1) {
+		$units = array('B', 'KB', 'MB', 'GB', 'TB');
+
+		$bytes = max($bytes, 0);
+		$pow = floor(($bytes ? log($bytes) : 0) / log(1024));
+		$pow = min($pow, count($units) - 1);
+		$bytes /= pow(1024, $pow);
+
+		return round($bytes, $precision) . ' ' . $units[$pow];
+	}
+
+	//openssl加解密，替换mcrypt模块
+	public static function opensslDecrypt($token, $encryptKey) {
+// 		$iv = @hex2bin(substr($token, 0, 32));
+		$iv = '123abc78g7o3m51e';
+		$result = @openssl_decrypt(@hex2bin(substr($token, 32)), 'AES-128-CBC', $encryptKey, OPENSSL_RAW_DATA, $iv);
+		return $result;
+	}
+
+	public static function opensslEncrypt($text, $encryptKey) {
+// 		$iv = @openssl_random_pseudo_bytes(16);	
+		$iv = '123abc78g7o3m51e';
+		$token = @bin2hex($iv) . @bin2hex(@openssl_encrypt($text, 'AES-128-CBC', $encryptKey, OPENSSL_RAW_DATA, $iv));
+		return $token;
+	}
+	
+	public static function ArraySort(array $List, $by, $order='', $type='') {    
+	    foreach ($List as $key => $row) {  
+	        $sortby[$key] = $row->$by;  
+	    }  
+	    if ($order == "DESC") {  
+	        if ($type == "num") {  
+	            array_multisort($sortby, SORT_DESC, SORT_NUMERIC, $List);  
+	        } else {  
+	            array_multisort($sortby, SORT_DESC, SORT_STRING, $List);  
+	        }  
+	    } else {  
+	        if ($type == "num") {  
+	            array_multisort($sortby, SORT_ASC, SORT_NUMERIC, $List);  
+	        } else {  
+	            array_multisort($sortby, SORT_ASC, SORT_STRING, $List);  
+	        }  
+	    }  
+	    return $List;  
+	}  
+
 }

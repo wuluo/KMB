@@ -31,18 +31,19 @@ class Abstract_Filter {
 
 	/**
 	 * 绑定一个过滤器事件
-	 * @param $filterName 过滤器键，例如：request,则对应实例化Helper_RequestFilter
+	 * @param $filterName 过滤器键，例如：request,则对应实例化Request
 	 * @param $method 调用的方法数组
 	 * @return boolean
 	 */
-	public function bindFilterEvent($filterName, $method, $param = array()) {
+	public function bind($filterName, $method, $param = array()) {
 		$filter = $this->getFilterInsatnce($filterName);
 		if ($filter == null) {
-			$filterClassName = "Helper_" . ucwords($filterName) . "Filter";
-			$filter = new $filterClassName();
-			$this->saveFilterInstance($filterName, $filter);
+			$filterClassName = ucwords($filterName);
+			if(class_exists($filterClassName)){
+				$filter = new $filterClassName();
+				$this->saveFilterInstance($filterName, $filter);
+			}
 		}
-
 		//绑定事件
 		if (!isset(Abstract_Filter::$filterEvent[$filterName][$method])) {
 			Abstract_Filter::$filterEvent[$filterName][$method] = $param;//过滤器名->过滤器方法参数
@@ -53,12 +54,11 @@ class Abstract_Filter {
 	/**
 	 * 执行当前过滤器的过滤事件
 	 * @return [
-	 *  'result' => true,
-	 *  'message'=> '拦截原因'
+	 *    'instance.method' => mixed
 	 * ]
 	 */
 	public function exec() {
-		$exception = [];//执行异常
+		$exception = $result = [];//执行异常
 		if (is_array(Abstract_Filter::$filterEvent)) {
 			foreach (Abstract_Filter::$filterEvent as $event => $value) {
 				$eventInstance = $this->getFilterInsatnce($event);
@@ -66,20 +66,18 @@ class Abstract_Filter {
 					foreach ($value as $method => $param) {
 						if (!method_exists($eventInstance, $method)) {
 							$exception[] = "调用方法不存在：{$event}->{$method}";
-							//@TODO::这里记录异常日志
 						} else {
 							try {
-								call_user_func_array([$eventInstance, $method], $param);
-							} catch (Business_Exception $e) {
+								$result[$event.$method] = call_user_func_array([$eventInstance, $method], $param);
+							} catch (Exception $e) {
 								throw $e;
-//								return $excResult = $e->getMessage();
 							}
 						}
 					}
 				}
 			}
 		}
-		return true;
+		return $result;
 	}
 
 

@@ -27,6 +27,7 @@ class Business_Author extends Business {
 			if($password != $result->password) {
 				throw new Exception("密码错误");
 			}
+			$roleUser = Dao::factory('RoleUser')->getRoleId($result->id)->current();
 			$nowInfo = array(
 				'last_login_ip'=> Misc::getClientIp(),
 				'last_login_time'=>time(),
@@ -35,6 +36,7 @@ class Business_Author extends Business {
 			Session::instance()->set('title',$result->title);
 			Session::instance()->set('logintime',$nowInfo['last_login_time']);
 			Session::instance()->set('id',$result->id);
+			Session::instance()->set('roleid',$roleUser->role_id);
 			Session::instance()->set('login',1);
 			Dao::factory('Author')->setUser($nowInfo, $result->id);
 			//Logger::write($username.' 登陆成功');

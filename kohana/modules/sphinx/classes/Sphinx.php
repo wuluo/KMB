@@ -185,7 +185,6 @@ class Sphinx {
 	 * @return Search
 	 */
 	public function execute() {
-
 		$params = array ();
 
 		if($this->_index) {

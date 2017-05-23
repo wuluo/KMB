@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * 使用方法:
+ * JSON::encode($data);
+ * JSON::decode($data, $object = false);
+ */
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 /**
  * Converts to and from JSON format.
@@ -325,7 +329,7 @@ class Services_JSON {
 	 * @access   public
 	 */
 	function encode($var) {
-		header('Content-type: application/json');
+		//header('Content-type: application/json');
 		return $this->encodeUnsafe($var);
 	}
 

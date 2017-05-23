@@ -48,4 +48,9 @@ class Controller_Base extends Controller
     {
 
     }
+
+    public function getMenusAndRules()
+    {
+
+    }
 }

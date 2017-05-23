@@ -55,15 +55,18 @@ class Account {
 	protected $_privileges = NULL;
 
 	public function __construct($accountId = 0) {
-		$account = Business::factory('Account')->getAccountByAccountId($accountId);
-		if(isset($account[0]['account_id'])) {
-			$this->_accountId = $account[0]['account_id'];
+		$accounts = Business::factory('Account')->getAccountByAccountId($accountId);
+		if($accounts && $accounts->count()) {
+			$account = get_object_vars($accounts->current());
 		}
-		if(isset($account[0]['name'])) {
-			$this->_name = $account[0]['name'];
+		if(isset($account['account_id'])) {
+			$this->_accountId = $account['account_id'];
 		}
-		if(isset($account[0]['given_name'])) {
-			$this->_given_name = $account[0]['given_name'];
+		if(isset($account['name'])) {
+			$this->_name = $account['name'];
+		}
+		if(isset($account['given_name'])) {
+			$this->_given_name = $account['given_name'];
 		}
 	}
 
