@@ -235,3 +235,13 @@
 2017-05-23 16:41:58 --- CRITICAL: ErrorException [ 1 ]: Method View::__toString() must not throw an exception, caught ParseError: syntax error, unexpected '}', expecting end of file ~ D:\Code\github\KMB\kohana\system\classes\Kohana\Response.php [ 0 ] in file:line
 2017-05-23 16:41:58 --- DEBUG: #0 [internal function]: Kohana_Core::shutdown_handler()
 #1 {main} in file:line
+2017-05-23 17:30:18 --- CRITICAL: View_Exception [ 0 ]: The requested view menu/index could not be found ~ D:\Code\github\KMB\kohana\system\classes\Kohana\View.php [ 257 ] in D:\Code\github\KMB\Taurasi\application\classes\Controller\Base.php:39
+2017-05-23 17:30:18 --- DEBUG: #0 D:\Code\github\KMB\Taurasi\application\classes\Controller\Base.php(39): Kohana_View->set_filename('menu/index')
+#1 D:\Code\github\KMB\Taurasi\application\classes\Controller\Menu.php(6): Controller_Base->display()
+#2 D:\Code\github\KMB\kohana\system\classes\Kohana\Controller.php(84): Controller_Menu->action_index()
+#3 [internal function]: Kohana_Controller->execute()
+#4 D:\Code\github\KMB\kohana\system\classes\Kohana\Request\Client\Internal.php(97): ReflectionMethod->invoke(Object(Controller_Menu))
+#5 D:\Code\github\KMB\kohana\system\classes\Kohana\Request\Client.php(114): Kohana_Request_Client_Internal->execute_request(Object(Request), Object(Response))
+#6 D:\Code\github\KMB\kohana\system\classes\Kohana\Request.php(985): Kohana_Request_Client->execute(Object(Request))
+#7 D:\Code\github\KMB\Taurasi\public\index.php(26): Kohana_Request->execute()
+#8 {main} in D:\Code\github\KMB\Taurasi\application\classes\Controller\Base.php:39

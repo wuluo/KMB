@@ -1,5 +1,4 @@
-{% extends "public/base.html" %}
-{% block content %}
+<?php include Kohana::find_file('views', 'public/header') ?>
     <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
@@ -38,29 +37,29 @@
             </tr>
             </thead>
             <tbody>
-            {% for menu in menus %}
+            <?php foreach ($fmenus as $k=>$v){ ?>
             <tr align="center">
-              <td>{{ menu.id }}</td>
-              <td>{{ menu.name }}</td>
-              <td>{{ menu.uri }}</td>
-              <th>{{ menu.parent_name }}</th>
-              <th>{% if menu.status == 1 %}启用{% else %}禁用{% endif %}</th>
+              <td><?=$v['id']?></td>
+              <td><?=$v['name']?></td>
+              <td><?=$v['uri']?></td>
+              <th><?=$v['parent_name']?></th>
+              <th><?php if($v['status'] == 1){echo "启用";}else{echo "禁用";} ?></th>
               <td>
-                <a class="btn btn-xs btn-success btn-flat" href="/admin/menu/save?id={{ menu.id }}">
+                <a class="btn btn-xs btn-success btn-flat" href="/menu/save?id=<?=$v['id']?>">
                   <i class="fa fa-edit"></i> 编辑
                 </a>&nbsp;&nbsp;
-                {% if menu.status == 1 %}
-                <a class="btn btn-xs bg-orange btn-flat" href="/admin/menu/off?id={{ menu.id }}">
+				  <?php if($v['status'] == 1){?>
+                <a class="btn btn-xs bg-orange btn-flat" href="/menu/off?id=<?=$v['id']?>">
                   <i class="fa fa-close"></i> 禁用
                 </a>
-                {% else %}禁用
-                <a class="btn btn-xs bg-maroon btn-flat" href="/admin/menu/on?id={{ menu.id }}">
+                <?php }else{ ?>
+                <a class="btn btn-xs bg-maroon btn-flat" href="/menu/on?id=<?=$v['id']?>">
                   <i class="fa fa-check"></i> 启用
                 </a>
-                {% endif %}
+                <?php } ?>
               </td>
             </tr>
-            {% endfor %}
+            <?php } ?>
             </tbody>
           </table>
         </div>
@@ -78,34 +77,34 @@
             </tr>
             </thead>
             <tbody>
-            {% for menu in amenus %}
-            <tr align="center">
-              <td>{{ menu.id }}</td>
-              <td>{{ menu.name }}</td>
-              <td>{{ menu.icon }}</td>
-              <td>{{ menu.uri }}</td>
-              <th>{{ menu.parent_name }}</th>
-              <th>{% if menu.status == 1 %}启用{% else %}禁用{% endif %}</th>
-              <td>
-                <a class="btn btn-xs btn-success btn-flat" href="/admin/menu/save?id={{ menu.id }}">
-                  <i class="fa fa-edit"></i> 编辑
-                </a>&nbsp;&nbsp;
-                {% if menu.status == 1 %}
-                <a class="btn btn-xs bg-orange btn-flat" href="/admin/menu/off?id={{ menu.id }}">
-                  <i class="fa fa-close"></i> 禁用
-                </a>
-                {% else %}禁用
-                <a class="btn btn-xs bg-maroon btn-flat" href="/admin/menu/on?id={{ menu.id }}">
-                  <i class="fa fa-check"></i> 启用
-                </a>
-                {% endif %}
-              </td>
-            </tr>
-            {% endfor %}
+			<?php foreach ($amenus as $key=>$val){ ?>
+                <tr align="center">
+                    <td><?=$val['id']?></td>
+                    <td><?=$val['name']?></td>
+                    <td><?=$val['icon']?></td>
+                    <td><?=$val['uri']?></td>
+                    <th><?=$val['parent_name']?></th>
+                    <th><?php if($val['status'] == 1){echo "启用";}else{echo "禁用";} ?></th>
+                    <td>
+                        <a class="btn btn-xs btn-success btn-flat" href="/menu/save?id=<?=$val['id']?>">
+                            <i class="fa fa-edit"></i> 编辑
+                        </a>&nbsp;&nbsp;
+						<?php if($val['status'] == 1){?>
+                            <a class="btn btn-xs bg-orange btn-flat" href="/menu/off?id=<?=$val['id']?>">
+                                <i class="fa fa-close"></i> 禁用
+                            </a>
+						<?php }else{ ?>
+                            <a class="btn btn-xs bg-maroon btn-flat" href="/menu/on?id=<?=$val['id']?>">
+                                <i class="fa fa-check"></i> 启用
+                            </a>
+						<?php } ?>
+                    </td>
+                </tr>
+			<?php } ?>
             </tbody>
           </table>
         </div>
       </div>
     </div>
   </section>
-{% endblock %}
+<?php include Kohana::find_file('views', 'public/footer') ?>
