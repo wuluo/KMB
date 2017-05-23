@@ -1,0 +1,63 @@
+{% extends "public/resource.html" %}
+{% block content %}
+    <div class="box box-primary">
+      <form class="" role="form">
+        <div class="box-body">
+          <div class="form-group">
+            <div class="row">
+            <div class="col-md-1 text-center">
+              <label>标题</label>
+            </div>
+            <div class="col-md-6">
+              <input type="text" class="form-control" id="">
+            </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-1 text-center">
+                <label>作者</label>
+              </div>
+              <div class="col-md-6">
+                <input type="text" class="form-control" placeholder="{{global.admin.userName}}">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-1 text-center">
+                <label>分类</label>
+              </div>
+              <div class="col-md-6">
+                <select class="form-control">
+                  <option>option 1</option>
+                  <option>option 2</option>
+                  <option>option 3</option>
+                  <option>option 4</option>
+                  <option>option 5</option>
+                </select>
+              </div>
+              <div class="col-md-2">
+                <a class="btn btn-success btn-flat" href="">
+                  <i class="fa fa-plus"></i> 添加分类
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-1 text-center">
+                <label>内容</label>
+              </div>
+              <div class="col-md-11">
+                <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="box-footer">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+{% endblock %}

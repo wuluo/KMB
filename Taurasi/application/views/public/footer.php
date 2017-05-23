@@ -1,9 +1,10 @@
+</div>
+</div>
 <footer class="main-footer">
 <div class="pull-right hidden-xs">
   <b>Version</b> 1.0.0
 </div>
-<strong>Copyright &copy; 2017-01 <a href="javascript:;">utilities management system ums(Basic)</a>.</strong> All rights
-reserved.
+<strong>Copyright &copy; <a href="http://www.miitbeian.gov.cn/">京ICP备15024649号-1</a></strong>
 </footer>
 </div>
 <!-- ./wrapper -->

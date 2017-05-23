@@ -21,6 +21,7 @@ class Business_Author extends Business {
 			if($result === null) {
 				throw new Exception("用户名错误");
 			}
+
 			//从数据库取出盐
 			$password = md5(md5($password).$result->_salt);
 			if($password != $result->password) {
@@ -36,7 +37,7 @@ class Business_Author extends Business {
 			Session::instance()->set('id',$result->id);
 			Session::instance()->set('login',1);
 			Dao::factory('Author')->setUser($nowInfo, $result->id);
-			Logger::write($username.' 登陆成功');
+			//Logger::write($username.' 登陆成功');
 			return true;
 		}
 		catch(Exception $e)

@@ -1,8 +1,5 @@
 <?php include Kohana::find_file('views', 'public/header') ?>
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
-  <!-- Content Header (Page header) -->
-  <section class="content-header">
+<section class="content-header">
     <h1>
       系统日志
     </h1>
@@ -14,39 +11,35 @@
   <!-- Main content -->
   <section class="content">
     <div class="box box-primary">
-      <div class="box-header">     
-      </div>
       <div class="box-body">
-        <div class="form-group col-sm-4">
-          <label class="col-sm-4 control-label">起始时间:</label>
-          <div class="input-group col-sm-8">
-            <div class="input-group-addon">
-              <i class="fa fa-clock-o"></i>
-            </div>
-            <input type="text" class="form-control pull-right" id="reservationtime">
+        <div class="col-md-4">
+        <div class="input-group">
+          <div class="input-group-btn">
+             <button type="button" class="btn btn-default disabled">开始时间</button>
           </div>
+          <input type="text" class="form-control">
         </div>
-        <div class="form-group col-sm-4">
-          <label class="col-sm-4 control-label">截止时间:</label>
-          <div class="input-group col-sm-8">
-            <div class="input-group-addon">
-              <i class="fa fa-clock-o"></i>
+        </div>
+        <div class="col-md-4">
+        <div class="input-group">
+            <div class="input-group-btn">
+                <button type="button" class="btn btn-default disabled">结束时间</button>
             </div>
-            <input type="text" class="form-control pull-right" id="reservationtime">
-          </div>
-        </div>
-        <div class="input-group col-sm-4">
+            <input type="text" class="form-control">
+        </div></div>
+        <div class="col-md-4">
+        <div class="input-group">
           <input type="text" class="form-control">
           <span class="input-group-btn">
             <button type="button" class="btn btn-info btn-flat"><i class="fa fa-fw fa-search"></i>&nbsp;搜日志</button>
           </span>
-        </div>
+        </div></div>
       </div>
     </div>
     <div class="box box-primary">
       <div class="box-body">
         <div class="row">
-        <table id="example1" class="table table-bordered">
+        <table id="example1" class="table table-bordered table-hover text-center">
           <thead>
           <tr>
             <th>Rendering engine</th>
@@ -112,16 +105,4 @@
       
     </div>
   </section>
-  <!-- /.content -->
-</div>
 <?php include Kohana::find_file('views', 'public/footer') ?>
-<script>
-  $(function () {
-    //Date range picker with time picker
-    $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
-    //Date picker
-    $('#datepicker').datepicker({
-      autoclose: true
-    });
-  });
-</script>

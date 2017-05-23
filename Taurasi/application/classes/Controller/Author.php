@@ -32,12 +32,4 @@ class Controller_Author extends Controller {
 			Misc::message($logoutResult, 'author');
 		}
 	}
-
-	//测试用账号生成 账号admin,密码admin
-	public function action_test_insert() {
-		$salt = substr(md5(time()), 0, 4);
-		$password = $salt.md5($salt.'admin');
-		list($insert_id,$rows) = DB::query(Database::INSERT,"insert into codec_user(username,password) values('admin','$password')")->execute();
-		var_dump($insert_id);
-	}
 }
