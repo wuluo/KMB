@@ -1,5 +1,14 @@
-{% extends "public/resource.html" %}
-{% block content %}
+<?php include Kohana::find_file('views', 'public/header') ?>
+  <section class="content-header">
+    <h1>
+      博文编辑
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="/admin/blog/index"><i class="fa fa-dashboard"></i>博文管理</a></li>
+      <li class="active">博文编辑</li>
+    </ol>
+  </section>
+  <section class="content">
     <div class="box box-primary">
       <form class="" role="form">
         <div class="box-body">
@@ -60,4 +69,5 @@
         </div>
       </form>
     </div>
-{% endblock %}
+  </section>
+<?php include Kohana::find_file('views', 'public/footer') ?>

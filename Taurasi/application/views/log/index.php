@@ -1,5 +1,5 @@
 <?php include Kohana::find_file('views', 'public/header') ?>
-<section class="content-header">
+  <section class="content-header">
     <h1>
       系统日志
     </h1>

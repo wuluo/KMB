@@ -1,5 +1,4 @@
-{% extends "public/base.html" %}
-{% block content %}
+<?php include Kohana::find_file('views', 'public/header') ?>
   <section class="content-header">
     <h1>
       用户管理
@@ -14,11 +13,11 @@
     <div class="box box-primary">
       <div class="box-body">
         <div class="col-md-4">
-          <a class="btn btn-success btn-flat" href="/admin/blog/save">
+          <a class="btn btn-success btn-flat" href="/user/add">
             <i class="fa fa-plus"></i> 添加用户
           </a>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <a class="btn btn-info btn-flat" href="/admin/blog/save">
+          <a class="btn btn-info btn-flat" href="/user/save">
             <i class="fa fa-plus"></i> 添加管理员
           </a>
         </div>
@@ -155,4 +154,4 @@
       </div>
     </div>
   </section>
-{% endblock %}
+<?php include Kohana::find_file('views', 'public/footer') ?>

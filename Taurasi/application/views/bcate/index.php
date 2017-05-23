@@ -1,5 +1,4 @@
-{% extends "public/base.html" %}
-{% block content %}
+<?php include Kohana::find_file('views', 'public/header') ?>
   <section class="content-header">
     <h1>
       博客管理
@@ -116,4 +115,4 @@
         $('[data-toggle="popover"]').popover()
     })
 </script>
-{% endblock %}
+<?php include Kohana::find_file('views', 'public/footer') ?>
