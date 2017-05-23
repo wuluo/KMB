@@ -54,6 +54,7 @@ class Controller_Base extends Controller
 			'userinfo'=>$userinfo,
 			'menus'=>$RoleMenus['menus'],
 			'rules'=>$RoleMenus['rules'],
+			'nowUrl'=>'/'.$current_controller.'/'.$current_action,
 		]);
 		$this->response->headers('cache-control', 'no-store, must-revalidate');
 		$this->response->headers('Pragma', 'no-cache');

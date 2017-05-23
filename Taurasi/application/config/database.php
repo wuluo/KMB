@@ -4,12 +4,12 @@ return [
     'default' => [
         'type'       => 'PDO',
         'connection' => [
-            'dsn'        => 'mysql:host=127.0.0.1;port=3306;dbname=taurasi;charset=utf8',
+            'dsn'        => 'mysql:host=127.0.0.1;port=3306;dbname=kmanager;charset=utf8',
             'username'   => 'root',
             'password'   => 'root',
             'persistent' => FALSE,
         ],
-        'table_prefix' => 'ts_',
+        'table_prefix' => 'km_',
         'charset'      => 'utf8',
         'caching'      => FALSE,
     ],

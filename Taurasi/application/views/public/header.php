@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Taurasi</title>
+  <title>KManager</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -33,9 +33,9 @@
     <!-- Logo -->
     <a href="#" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>Tas</b></span>
+      <span class="logo-mini"><b>KM</b></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Taurasi</b></span>
+      <span class="logo-lg"><b>KManager</b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -98,7 +98,7 @@
     <section class="sidebar">
       <ul class="sidebar-menu">
         <?php foreach ($menus as $k=>$v){ ?>
-        <li class="treeview <?php if(!empty($v["child"])){ foreach ($v['child'] as $k2=>$v2){ if($v2['uri'] == URL::site()){ echo " active";}}} ?>">
+        <li class="treeview <?php if(!empty($v["child"])){ foreach ($v['child'] as $k2=>$v2){ if($v2['uri'] == $nowUrl){ echo " active";}}} ?>">
           <a href="javascript:;">
             <i class="fa <?=$v['icon']?>"></i> <span><?=$v['name']?></span>
               <?php if(!empty($v['child'])){ ?>
@@ -110,7 +110,7 @@
           <?php if(!empty($v['child'])){ ?>
           <ul class="treeview-menu">
             <?php foreach ($v['child'] as $k1=>$v1){ ?>
-              <?php if($v1['uri'] == URL::base()){?>
+              <?php if($v1['uri'] == $nowUrl){?>
             <li class="active">
               <?php }else{ ?>
             <li>
