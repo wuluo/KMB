@@ -2,7 +2,6 @@
 
 /**
  * reids缓存操作类
- * @author pengmeng<pengmeng@gomeplus.com>
  */
 class Redisd {
 

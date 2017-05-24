@@ -2,7 +2,6 @@
 
 /**
  * Redis分布锁实现
- * @author pengmeng
  * 实例:
  * 初始化并配置锁
  * $lock = new RedisLock(Sr::cache()->instance());

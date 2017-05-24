@@ -3,9 +3,6 @@
 /**
  *  Http操作类.
  * 第三方Http操作类库
- * 源代码出处：http://git.oschina.net/snail/microphp/blob/development/modules/library/WoniuHttp.class.php
- * @author   pengmeng
- * @date     2015-06-29
  * @version  1.0
  */
 class Curl_Request {
